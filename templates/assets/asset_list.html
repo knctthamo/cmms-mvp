@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Asset List</h1>
+
+<ul>
+    {% for asset in assets %}
+        <li>
+            {{ asset.asset_code }} - {{ asset.name }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

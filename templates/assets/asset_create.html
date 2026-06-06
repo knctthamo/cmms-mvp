@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Asset</title>
+</head>
+<body>
+
+<h1>Create Asset</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        Asset Code:
+        <input type="text" name="asset_code">
+    </p>
+
+    <p>
+        Name:
+        <input type="text" name="name">
+    </p>
+
+    <p>
+        Installation Date:
+        <input type="date" name="installation_date">
+    </p>
+
+    <p>
+        Status:
+        <select name="status">
+            <option value="ACTIVE">Active</option>
+            <option value="INACTIVE">Inactive</option>
+            <option value="UNDER_MAINTENANCE">
+                Under Maintenance
+            </option>
+        </select>
+    </p>
+
+    <p>
+        Criticality:
+        <select name="criticality">
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+        </select>
+    </p>
+
+    <button type="submit">
+        Save
+    </button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+from .models import WorkOrder
+from assets.models import Asset
+
+# Generate next work order number
+def generate_work_order_number():
+
+    last_work_order = WorkOrder.objects.order_by('-id').first()
+
+    if last_work_order:
+        return f"WO-{last_work_order.id + 1:04d}"
+
+    return "WO-0001"
+
+
+# Get all work orders
+def get_all_work_orders():
+
+    return WorkOrder.objects.all()
+
+# Create work order
+def create_work_order(
+    title,
+    description,
+    asset_id
+):
+
+    work_order_number = generate_work_order_number()
+
+    asset = Asset.objects.get(id=asset_id)
+
+    return WorkOrder.objects.create(
+        work_order_number=work_order_number,
+        title=title,
+        description=description,
+        asset=asset
+    )
+# Get work order by id
+def get_work_order_by_id(id):
+
+    return WorkOrder.objects.get(id=id)
+
+# Update work order
+def update_work_order(
+    id,
+    title,
+    description,
+    asset_id,
+    status
+):
+
+    work_order = WorkOrder.objects.get(id=id)
+
+    asset = Asset.objects.get(id=asset_id)
+
+    work_order.title = title
+    work_order.description = description
+    work_order.asset = asset
+    work_order.status = status
+
+    work_order.save()
+
+    return work_order
+
+
+# Delete work order
+def delete_work_order(id):
+
+    work_order = WorkOrder.objects.get(id=id)
+
+    work_order.delete()

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CMMS</title>
+</head>
+<body>
+
+<hr>
+
+Welcome {{ request.user.username }}
+
+|
+<a href="/logout/">Logout</a>
+
+<hr>
+
+<div>
+
+    <a href="/dashboard/">Dashboard</a> |
+
+    <a href="/assets/">Assets</a> |
+
+    <a href="/workorders/">Work Orders</a> |
+
+</div>
+
+<hr>
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

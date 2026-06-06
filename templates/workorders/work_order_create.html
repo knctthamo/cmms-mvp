@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Work Order</title>
+</head>
+<body>
+
+<h1>Create Work Order</h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <p>
+        Title:
+        <input
+            type="text"
+            name="title">
+    </p>
+
+    <p>
+        Description:
+        <textarea
+            name="description">
+        </textarea>
+    </p>
+
+    <p>
+        Asset:
+
+        <select name="asset">
+
+            {% for asset in assets %}
+
+            <option value="{{ asset.id }}">
+
+                {{ asset.asset_code }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <button type="submit">
+
+        Create Work Order
+
+    </button>
+
+</form>
+
+</body>
+</html>

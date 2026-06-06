@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Work Order</title>
+</head>
+<body>
+
+<h1>Edit Work Order</h1>
+
+<form method="post">
+
+{% csrf_token %}
+
+<p>
+Title:
+<input
+    type="text"
+    name="title"
+    value="{{ work_order.title }}">
+</p>
+
+<p>
+Description:
+<textarea name="description">{{ work_order.description }}</textarea>
+</p>
+
+<p>
+Asset:
+
+<select name="asset">
+
+{% for asset in assets %}
+
+<option
+    value="{{ asset.id }}"
+    {% if asset.id == work_order.asset.id %}
+        selected
+    {% endif %}
+>
+
+{{ asset.asset_code }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</p>
+
+<p>
+
+Status:
+
+<select name="status">
+
+<option value="OPEN"
+{% if work_order.status == 'OPEN' %}
+selected
+{% endif %}
+>
+OPEN
+</option>
+
+<option value="IN_PROGRESS"
+{% if work_order.status == 'IN_PROGRESS' %}
+selected
+{% endif %}
+>
+IN_PROGRESS
+</option>
+
+<option value="COMPLETED"
+{% if work_order.status == 'COMPLETED' %}
+selected
+{% endif %}
+>
+COMPLETED
+</option>
+
+</select>
+
+</p>
+
+<button type="submit">
+
+Update Work Order
+
+</button>
+
+</form>
+
+</body>
+</html>

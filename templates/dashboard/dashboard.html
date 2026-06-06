@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>CMMS Dashboard</h1>
+
+<h2>Assets</h2>
+
+<p>Total Assets: {{ total_assets }}</p>
+
+<p>Active Assets: {{ active_assets }}</p>
+
+<p>Inactive Assets: {{ inactive_assets }}</p>
+
+
+<h2>Work Orders</h2>
+
+<p>Total Work Orders: {{ total_work_orders }}</p>
+
+<p>Open Work Orders: {{ open_work_orders }}</p>
+
+<p>Completed Work Orders: {{ completed_work_orders }}</p>
+
+
+<h2>Recent Work Orders</h2>
+
+<table border="1">
+
+<tr>
+    <th>WO Number</th>
+    <th>Title</th>
+    <th>Status</th>
+</tr>
+
+{% for work_order in recent_work_orders %}
+
+<tr>
+
+<td>
+{{ work_order.work_order_number }}
+</td>
+
+<td>
+{{ work_order.title }}
+</td>
+
+<td>
+{{ work_order.status }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Work Order Detail</title>
+</head>
+<body>
+
+<h1>Work Order Detail</h1>
+
+<p>
+    Work Order Number:
+    {{ work_order.work_order_number }}
+</p>
+
+<p>
+    Title:
+    {{ work_order.title }}
+</p>
+
+<p>
+    Description:
+    {{ work_order.description }}
+</p>
+
+<p>
+    Asset:
+    {{ work_order.asset.asset_code }}
+</p>
+
+<p>
+    Status:
+    {{ work_order.status }}
+</p>
+
+<p>
+    Created Date:
+    {{ work_order.created_date }}
+</p>
+
+</body>
+</html>

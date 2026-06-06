@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Work Orders</h1>
+
+<table border="1">
+
+    <tr>
+        <th>WO Number</th>
+        <th>Title</th>
+        <th>Asset</th>
+        <th>Status</th>
+    </tr>
+
+    {% for work_order in work_orders %}
+
+    <tr>
+
+        <td>
+            <a href="/workorders/{{ work_order.id }}/">
+                {{ work_order.work_order_number }}
+            </a>
+        </td>
+
+        <td>
+            {{ work_order.title }}
+        </td>
+
+        <td>
+            {{ work_order.asset.asset_code }}
+        </td>
+
+        <td>
+            {{ work_order.status }}
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

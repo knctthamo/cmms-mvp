@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Work Order</title>
+</head>
+<body>
+
+<h1>Delete Work Order</h1>
+
+<p>
+
+Are you sure you want to delete:
+
+</p>
+
+<p>
+
+{{ work_order.work_order_number }}
+-
+{{ work_order.title }}
+
+</p>
+
+<form method="post">
+
+{% csrf_token %}
+
+<button type="submit">
+
+Delete
+
+</button>
+
+</form>
+
+<a href="/workorders/{{ work_order.id }}/">
+
+Cancel
+
+</a>
+
+</body>
+</html>

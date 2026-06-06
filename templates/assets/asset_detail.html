@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asset Details</title>
+</head>
+<body>
+
+<h1>Asset Details</h1>
+
+<p>
+    Asset Code: {{ asset.asset_code }}
+</p>
+
+<p>
+    Name: {{ asset.name }}
+</p>
+
+<p>
+    Installation Date: {{ asset.installation_date }}
+</p>
+
+<p>
+    Status: {{ asset.status }}
+</p>
+
+<p>
+    Criticality: {{ asset.criticality }}
+</p>
+
+<h2>Related Work Orders</h2>
+
+<ul>
+
+{% for work_order in work_orders %}
+
+    <li>
+        {{ work_order.work_order_number }}
+        -
+        {{ work_order.title }}
+    </li>
+
+{% endfor %}
+
+</ul>
+
+</body>
+</html>

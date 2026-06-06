@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Asset</title>
+</head>
+<body>
+
+<h1>Edit Asset</h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <p>
+        Asset Code:
+        <input
+            type="text"
+            name="asset_code"
+            value="{{ asset.asset_code }}">
+    </p>
+
+    <p>
+        Name:
+        <input
+            type="text"
+            name="name"
+            value="{{ asset.name }}">
+    </p>
+
+    <p>
+        Installation Date:
+        <input
+            type="date"
+            name="installation_date"
+            value="{{ asset.installation_date|date:'Y-m-d' }}">
+    </p>
+
+    <p>
+        Status:
+        <select name="status">
+
+            <option value="ACTIVE"
+                {% if asset.status == 'ACTIVE' %}
+                    selected
+                {% endif %}
+            >
+                Active
+            </option>
+
+            <option value="INACTIVE"
+                {% if asset.status == 'INACTIVE' %}
+                    selected
+                {% endif %}
+            >
+                Inactive
+            </option>
+
+            <option value="UNDER_MAINTENANCE"
+                {% if asset.status == 'UNDER_MAINTENANCE' %}
+                    selected
+                {% endif %}
+            >
+                Under Maintenance
+            </option>
+
+        </select>
+    </p>
+
+    <p>
+        Criticality:
+        <select name="criticality">
+
+            <option value="LOW"
+                {% if asset.criticality == 'LOW' %}
+                    selected
+                {% endif %}
+            >
+                Low
+            </option>
+
+            <option value="MEDIUM"
+                {% if asset.criticality == 'MEDIUM' %}
+                    selected
+                {% endif %}
+            >
+                Medium
+            </option>
+
+            <option value="HIGH"
+                {% if asset.criticality == 'HIGH' %}
+                    selected
+                {% endif %}
+            >
+                High
+            </option>
+
+        </select>
+    </p>
+
+    <button type="submit">
+        Update Asset
+    </button>
+
+</form>
+
+</body>
+</html>
