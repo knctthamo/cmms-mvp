@@ -1,56 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Work Order</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Create Work Order</h1>
+{% block content %}
+
+<div class="page-card">
+
+<h2>➕ Create Work Order</h2>
 
 <form method="post">
 
     {% csrf_token %}
 
-    <p>
-        Title:
+    <div class="form-group">
+        <label>Title</label>
         <input
             type="text"
-            name="title">
-    </p>
+            name="title"
+            required>
+    </div>
 
-    <p>
-        Description:
+    <div class="form-group">
+        <label>Description</label>
         <textarea
-            name="description">
-        </textarea>
-    </p>
+            name="description"
+            rows="4"></textarea>
+    </div>
 
-    <p>
-        Asset:
+    <div class="form-group">
+        <label>Asset</label>
 
-        <select name="asset">
+        <select name="asset" required>
 
             {% for asset in assets %}
 
             <option value="{{ asset.id }}">
-
                 {{ asset.asset_code }}
-
             </option>
 
             {% endfor %}
 
         </select>
 
-    </p>
+    </div>
 
-    <button type="submit">
+    <div style="margin-top:25px;">
 
-        Create Work Order
+        <button type="submit" class="btn">
+            Create Work Order
+        </button>
 
-    </button>
+        <a href="{% url 'work_order_list' %}"
+           class="btn"
+           style="margin-left:10px;">
+            Cancel
+        </a>
+
+    </div>
 
 </form>
 
-</body>
-</html>
+
+</div>
+
+{% endblock %}
