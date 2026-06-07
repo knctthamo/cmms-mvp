@@ -1,41 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Work Order Detail</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Work Order Detail</h1>
+{% block content %}
 
-<p>
-    Work Order Number:
-    {{ work_order.work_order_number }}
-</p>
+<div class="page-card">
 
-<p>
-    Title:
-    {{ work_order.title }}
-</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h2>🔧 Work Order Details</h2>
 
-<p>
-    Description:
-    {{ work_order.description }}
-</p>
+        <div class="action-links">
+            <a href="{% url 'work_order_edit' work_order.id %}" class="btn">
+                Edit
+            </a>
 
-<p>
-    Asset:
-    {{ work_order.asset.asset_code }}
-</p>
+            <a href="{% url 'work_order_delete' work_order.id %}" class="danger-btn">
+                Delete
+            </a>
+        </div>
+    </div>
 
-<p>
-    Status:
-    {{ work_order.status }}
-</p>
+    <table class="detail-table">
 
-<p>
-    Created Date:
-    {{ work_order.created_date }}
-</p>
+        <tr>
+            <td class="detail-label">Work Order Number</td>
+            <td>{{ work_order.work_order_number }}</td>
+        </tr>
 
-</body>
-</html>
+        <tr>
+            <td class="detail-label">Title</td>
+            <td>{{ work_order.title }}</td>
+        </tr>
+
+        <tr>
+            <td class="detail-label">Description</td>
+            <td>{{ work_order.description }}</td>
+        </tr>
+
+        <tr>
+            <td class="detail-label">Asset</td>
+            <td>
+                {{ work_order.asset.asset_code }}
+            </td>
+        </tr>
+
+        <tr>
+            <td class="detail-label">Status</td>
+            <td>{{ work_order.status }}</td>
+        </tr>
+
+        <tr>
+            <td class="detail-label">Created Date</td>
+            <td>{{ work_order.created_date }}</td>
+        </tr>
+
+    </table>
+
+    <div style="margin-top:20px;">
+        <a href="{% url 'work_order_list' %}" class="btn">
+            ← Back to Work Orders
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

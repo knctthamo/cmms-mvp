@@ -1,43 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Work Order</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Delete Work Order</h1>
+{% block content %}
 
-<p>
+<div class="page-card">
 
-Are you sure you want to delete:
 
+<h2 style="color:#dc2626;">
+    ⚠ Delete Work Order
+</h2>
+
+<p style="margin-top:20px;">
+    Are you sure you want to delete this work order?
 </p>
 
-<p>
+<table class="detail-table" style="margin-top:20px;">
 
-{{ work_order.work_order_number }}
--
-{{ work_order.title }}
+    <tr>
+        <td class="detail-label">Work Order Number</td>
+        <td>{{ work_order.work_order_number }}</td>
+    </tr>
 
-</p>
+    <tr>
+        <td class="detail-label">Title</td>
+        <td>{{ work_order.title }}</td>
+    </tr>
 
-<form method="post">
+    <tr>
+        <td class="detail-label">Asset</td>
+        <td>{{ work_order.asset.asset_code }}</td>
+    </tr>
 
-{% csrf_token %}
+    <tr>
+        <td class="detail-label">Status</td>
+        <td>{{ work_order.status }}</td>
+    </tr>
 
-<button type="submit">
+</table>
 
-Delete
+<form method="post" style="margin-top:25px;">
 
-</button>
+    {% csrf_token %}
+
+    <button type="submit" class="danger-btn">
+        Delete Work Order
+    </button>
+
+    <a href="{% url 'work_order_detail' work_order.id %}"
+       class="btn"
+       style="margin-left:10px;">
+        Cancel
+    </a>
 
 </form>
 
-<a href="/workorders/{{ work_order.id }}/">
 
-Cancel
+</div>
 
-</a>
+{% endblock %}
 
-</body>
-</html>

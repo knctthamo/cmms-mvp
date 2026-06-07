@@ -1,94 +1,102 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Work Order</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Edit Work Order</h1>
+{% block content %}
+
+<div class="page-card">
+
+```
+<h2>✏ Edit Work Order</h2>
 
 <form method="post">
 
-{% csrf_token %}
+    {% csrf_token %}
 
-<p>
-Title:
-<input
-    type="text"
-    name="title"
-    value="{{ work_order.title }}">
-</p>
+    <div class="form-group">
+        <label>Title</label>
+        <input
+            type="text"
+            name="title"
+            value="{{ work_order.title }}"
+            required>
+    </div>
 
-<p>
-Description:
-<textarea name="description">{{ work_order.description }}</textarea>
-</p>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea
+            name="description"
+            rows="4">{{ work_order.description }}</textarea>
+    </div>
 
-<p>
-Asset:
+    <div class="form-group">
+        <label>Asset</label>
 
-<select name="asset">
+        <select name="asset">
 
-{% for asset in assets %}
+            {% for asset in assets %}
 
-<option
-    value="{{ asset.id }}"
-    {% if asset.id == work_order.asset.id %}
-        selected
-    {% endif %}
->
+            <option
+                value="{{ asset.id }}"
+                {% if asset.id == work_order.asset.id %}
+                    selected
+                {% endif %}
+            >
+                {{ asset.asset_code }}
+            </option>
 
-{{ asset.asset_code }}
+            {% endfor %}
 
-</option>
+        </select>
+    </div>
 
-{% endfor %}
+    <div class="form-group">
+        <label>Status</label>
 
-</select>
+        <select name="status">
 
-</p>
+            <option value="OPEN"
+                {% if work_order.status == 'OPEN' %}
+                    selected
+                {% endif %}
+            >
+                OPEN
+            </option>
 
-<p>
+            <option value="IN_PROGRESS"
+                {% if work_order.status == 'IN_PROGRESS' %}
+                    selected
+                {% endif %}
+            >
+                IN PROGRESS
+            </option>
 
-Status:
+            <option value="COMPLETED"
+                {% if work_order.status == 'COMPLETED' %}
+                    selected
+                {% endif %}
+            >
+                COMPLETED
+            </option>
 
-<select name="status">
+        </select>
+    </div>
 
-<option value="OPEN"
-{% if work_order.status == 'OPEN' %}
-selected
-{% endif %}
->
-OPEN
-</option>
+    <div style="margin-top:25px;">
 
-<option value="IN_PROGRESS"
-{% if work_order.status == 'IN_PROGRESS' %}
-selected
-{% endif %}
->
-IN_PROGRESS
-</option>
+        <button type="submit" class="btn">
+            Update Work Order
+        </button>
 
-<option value="COMPLETED"
-{% if work_order.status == 'COMPLETED' %}
-selected
-{% endif %}
->
-COMPLETED
-</option>
+        <a href="{% url 'work_order_detail' work_order.id %}"
+           class="btn"
+           style="margin-left:10px;">
+            Cancel
+        </a>
 
-</select>
-
-</p>
-
-<button type="submit">
-
-Update Work Order
-
-</button>
+    </div>
 
 </form>
+```
 
-</body>
-</html>
+</div>
+
+{% endblock %}
