@@ -1,47 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Asset Details</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-card">
 
 <h1>Asset Details</h1>
 
-<p>
-    Asset Code: {{ asset.asset_code }}
-</p>
+<table class="detail-table">
 
-<p>
-    Name: {{ asset.name }}
-</p>
+<tr>
+    <td class="detail-label">Asset Code</td>
+    <td>{{ asset.asset_code }}</td>
+</tr>
 
-<p>
-    Installation Date: {{ asset.installation_date }}
-</p>
+<tr>
+    <td class="detail-label">Name</td>
+    <td>{{ asset.name }}</td>
+</tr>
 
-<p>
-    Status: {{ asset.status }}
-</p>
+<tr>
+    <td class="detail-label">Status</td>
+    <td>{{ asset.status }}</td>
+</tr>
 
-<p>
-    Criticality: {{ asset.criticality }}
-</p>
+<tr>
+    <td class="detail-label">Criticality</td>
+    <td>{{ asset.criticality }}</td>
+</tr>
 
-<h2>Related Work Orders</h2>
+</table>
 
-<ul>
+<br>
 
-{% for work_order in work_orders %}
+<div class="action-links">
 
-    <li>
-        {{ work_order.work_order_number }}
-        -
-        {{ work_order.title }}
-    </li>
+<a href="/assets/{{ asset.id }}/edit/">Edit</a>
 
-{% endfor %}
+<a href="/assets/{{ asset.id }}/delete/">Delete</a>
 
-</ul>
+<a href="/assets/">Back</a>
 
-</body>
-</html>
+</div>
+
+</div>
+
+{% endblock %}

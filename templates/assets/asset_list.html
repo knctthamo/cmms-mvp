@@ -4,12 +4,94 @@
 
 <h1>Asset List</h1>
 
-<ul>
+<p>
+
+    <a href="/assets/create/">
+
+        <button>
+
+            Create Asset
+
+        </button>
+
+    </a>
+
+</p>
+
+<table>
+
+    <tr>
+
+        <th>Asset Code</th>
+
+        <th>Name</th>
+
+        <th>Status</th>
+
+        <th>Criticality</th>
+
+        <th>Actions</th>
+
+    </tr>
+
     {% for asset in assets %}
-        <li>
-            {{ asset.asset_code }} - {{ asset.name }}
-        </li>
+
+    <tr>
+
+        <td>
+
+            {{ asset.asset_code }}
+
+        </td>
+
+        <td>
+
+            {{ asset.name }}
+
+        </td>
+
+        <td>
+
+            {{ asset.status }}
+
+        </td>
+
+        <td>
+
+            {{ asset.criticality }}
+
+        </td>
+
+        <td>
+
+            <a href="/assets/{{ asset.id }}/">
+
+                View
+
+            </a>
+
+            |
+
+            <a href="/assets/{{ asset.id }}/edit/">
+
+                Edit
+
+            </a>
+
+            |
+
+            <a href="/assets/{{ asset.id }}/delete/">
+
+                Delete
+
+            </a>
+
+        </td>
+
+    </tr>
+
     {% endfor %}
-</ul>
+
+</table>
 
 {% endblock %}

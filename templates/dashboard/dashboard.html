@@ -4,22 +4,30 @@
 
 <h1>CMMS Dashboard</h1>
 
-<h2>Assets</h2>
+<div class="card">
+    <h3>Total Assets</h3>
+    <h2>{{ total_assets }}</h2>
+</div>
 
-<p>Total Assets: {{ total_assets }}</p>
+<div class="card">
+    <h3>Active Assets</h3>
+    <h2>{{ active_assets }}</h2>
+</div>
 
-<p>Active Assets: {{ active_assets }}</p>
+<div class="card">
+    <h3>Inactive Assets</h3>
+    <h2>{{ inactive_assets }}</h2>
+</div>
 
-<p>Inactive Assets: {{ inactive_assets }}</p>
+<div class="card">
+    <h3>Open Work Orders</h3>
+    <h2>{{ open_work_orders }}</h2>
+</div>
 
-
-<h2>Work Orders</h2>
-
-<p>Total Work Orders: {{ total_work_orders }}</p>
-
-<p>Open Work Orders: {{ open_work_orders }}</p>
-
-<p>Completed Work Orders: {{ completed_work_orders }}</p>
+<div class="card">
+    <h3>Completed Work Orders</h3>
+    <h2>{{ completed_work_orders }}</h2>
+</div>
 
 
 <h2>Recent Work Orders</h2>
