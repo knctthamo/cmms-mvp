@@ -12,7 +12,7 @@ def asset_list(request):
         request,
         'assets/asset_list.html',
         {
-            'assets': assets
+            'assets': assets,
         }
     )
 
@@ -24,7 +24,8 @@ def active_asset_list(request):
         request,
         'assets/asset_list.html',
         {
-            'assets': assets
+            'assets': assets,
+            'current_page': 'assets'
         }
     )
 

@@ -10,22 +10,24 @@
 </head>
 
 <body>
-
 <div class="layout">
 
     <div class="sidebar">
 
         <h2>CMMS</h2>
 
-        <a href="/dashboard/">
+        <a href="{% url 'dashboard' %}"
+        class="{% if current_page == 'dashboard' %}active-link{% endif %}">
             Dashboard
         </a>
 
-        <a href="/assets/">
+        <a href="{% url 'asset_list' %}"
+        class="{% if current_page == 'assets' %}active-link{% endif %}">
             Assets
         </a>
 
-        <a href="/workorders/">
+        <a href="{% url 'work_order_list' %}"
+        class="{% if current_page == 'workorders' %}active-link{% endif %}">
             Work Orders
         </a>
 

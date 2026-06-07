@@ -42,5 +42,8 @@ def dashboard(request):
             'open_work_orders': open_work_orders,
             'completed_work_orders': completed_work_orders,
             'recent_work_orders': recent_work_orders,
+            "current_page": "dashboard",
+
+
         }
     )

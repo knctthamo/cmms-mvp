@@ -15,7 +15,8 @@ def work_order_list(request):
         request,
         'workorders/work_order_list.html',
         {
-            'work_orders': work_orders
+            'work_orders': work_orders,
+            "current_page": "workorders",
         }
     )
 
