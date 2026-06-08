@@ -43,6 +43,7 @@ def dashboard(request):
             'completed_work_orders': completed_work_orders,
             'recent_work_orders': recent_work_orders,
             "current_page": "dashboard",
+            'groups': request.user.groups.all(),
 
 
         }
