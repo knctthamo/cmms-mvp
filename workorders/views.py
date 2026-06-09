@@ -1,8 +1,18 @@
 from django.shortcuts import render, redirect
-from .services import get_all_work_orders,create_work_order,get_work_order_by_id,update_work_order, delete_work_order
-from assets.models import Asset
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
+from assets.models import Asset
+
+from .services import (
+    get_all_work_orders,
+    create_work_order,
+    get_work_order_by_id,
+    update_work_order,
+    delete_work_order,
+    get_technicians
+)
+
+from accounts.permissions import is_admin_or_manager
 
 
 # Show all work orders
@@ -16,12 +26,14 @@ def work_order_list(request):
         'workorders/work_order_list.html',
         {
             'work_orders': work_orders,
-            "current_page": "workorders",
+            'current_page': 'workorders',
         }
     )
 
+
 # Create work order
 @login_required
+@user_passes_test(is_admin_or_manager)
 def work_order_create(request):
 
     if request.method == 'POST':
@@ -29,20 +41,27 @@ def work_order_create(request):
         create_work_order(
             title=request.POST['title'],
             description=request.POST['description'],
-            asset_id=request.POST['asset']
+            asset_id=request.POST['asset'],
+            assigned_to_id=request.POST['assigned_to'],
+            due_date=request.POST['due_date']
         )
 
         return redirect('/workorders/')
 
     assets = Asset.objects.all()
 
+    technicians = get_technicians()
+
     return render(
         request,
         'workorders/work_order_create.html',
         {
-            'assets': assets
+            'assets': assets,
+            'technicians': technicians,
+            'current_page': 'workorders',
         }
     )
+
 
 # Show work order details
 @login_required
@@ -54,11 +73,15 @@ def work_order_detail(request, id):
         request,
         'workorders/work_order_detail.html',
         {
-            'work_order': work_order
+            'work_order': work_order,
+            'current_page': 'workorders',
         }
     )
 
+
+# Edit work order
 @login_required
+@user_passes_test(is_admin_or_manager)
 def work_order_edit(request, id):
 
     if request.method == 'POST':
@@ -68,6 +91,8 @@ def work_order_edit(request, id):
             title=request.POST['title'],
             description=request.POST['description'],
             asset_id=request.POST['asset'],
+            assigned_to_id=request.POST['assigned_to'],
+            due_date=request.POST['due_date'],
             status=request.POST['status']
         )
 
@@ -77,16 +102,23 @@ def work_order_edit(request, id):
 
     assets = Asset.objects.all()
 
+    technicians = get_technicians()
+
     return render(
         request,
         'workorders/work_order_edit.html',
         {
             'work_order': work_order,
-            'assets': assets
+            'assets': assets,
+            'technicians': technicians,
+            'current_page': 'workorders',
         }
     )
 
+
+# Delete work order
 @login_required
+@user_passes_test(is_admin_or_manager)
 def work_order_delete(request, id):
 
     if request.method == 'POST':
@@ -101,6 +133,7 @@ def work_order_delete(request, id):
         request,
         'workorders/work_order_delete.html',
         {
-            'work_order': work_order
+            'work_order': work_order,
+            'current_page': 'workorders',
         }
     )

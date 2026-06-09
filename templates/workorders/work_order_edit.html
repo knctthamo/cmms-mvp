@@ -4,97 +4,130 @@
 
 <div class="page-card">
 
-<h2>✏ Edit Work Order</h2>
+    <h2>✏ Edit Work Order</h2>
 
-<form method="post">
+    <form method="post">
 
-    {% csrf_token %}
+        {% csrf_token %}
 
-    <div class="form-group">
-        <label>Title</label>
-        <input
-            type="text"
-            name="title"
-            value="{{ work_order.title }}"
-            required>
-    </div>
+        <div class="form-group">
+            <label>Title</label>
+            <input
+                type="text"
+                name="title"
+                value="{{ work_order.title }}"
+                required>
+        </div>
 
-    <div class="form-group">
-        <label>Description</label>
-        <textarea
-            name="description"
-            rows="4">{{ work_order.description }}</textarea>
-    </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea
+                name="description"
+                rows="4">{{ work_order.description }}</textarea>
+        </div>
 
-    <div class="form-group">
-        <label>Asset</label>
+        <div class="form-group">
+            <label>Asset</label>
 
-        <select name="asset">
+            <select name="asset">
 
-            {% for asset in assets %}
+                {% for asset in assets %}
 
-            <option
-                value="{{ asset.id }}"
-                {% if asset.id == work_order.asset.id %}
-                    selected
-                {% endif %}
-            >
-                {{ asset.asset_code }}
-            </option>
+                <option
+                    value="{{ asset.id }}"
+                    {% if asset.id == work_order.asset.id %}
+                        selected
+                    {% endif %}
+                >
+                    {{ asset.asset_code }}
+                </option>
 
-            {% endfor %}
+                {% endfor %}
 
-        </select>
-    </div>
+            </select>
 
-    <div class="form-group">
-        <label>Status</label>
+        </div>
 
-        <select name="status">
+        <div class="form-group">
+            <label>Assigned Technician</label>
 
-            <option value="OPEN"
-                {% if work_order.status == 'OPEN' %}
-                    selected
-                {% endif %}
-            >
-                OPEN
-            </option>
+            <select name="assigned_to">
 
-            <option value="IN_PROGRESS"
-                {% if work_order.status == 'IN_PROGRESS' %}
-                    selected
-                {% endif %}
-            >
-                IN PROGRESS
-            </option>
+                {% for technician in technicians %}
 
-            <option value="COMPLETED"
-                {% if work_order.status == 'COMPLETED' %}
-                    selected
-                {% endif %}
-            >
-                COMPLETED
-            </option>
+                <option
+                    value="{{ technician.id }}"
+                    {% if work_order.assigned_to and technician.id == work_order.assigned_to.id %}
+                        selected
+                    {% endif %}
+                >
+                    {{ technician.username }}
+                </option>
 
-        </select>
-    </div>
+                {% endfor %}
 
-    <div style="margin-top:25px;">
+            </select>
 
-        <button type="submit" class="btn">
-            Update Work Order
-        </button>
+        </div>
 
-        <a href="{% url 'work_order_detail' work_order.id %}"
-           class="btn"
-           style="margin-left:10px;">
-            Cancel
-        </a>
+        <div class="form-group">
+            <label>Due Date</label>
 
-    </div>
+            <input
+                type="date"
+                name="due_date"
+                value="{{ work_order.due_date|date:'Y-m-d' }}"
+                required>
+        </div>
 
-</form>
+        <div class="form-group">
+            <label>Status</label>
 
+            <select name="status">
+
+                <option value="OPEN"
+                    {% if work_order.status == 'OPEN' %}
+                        selected
+                    {% endif %}
+                >
+                    OPEN
+                </option>
+
+                <option value="IN_PROGRESS"
+                    {% if work_order.status == 'IN_PROGRESS' %}
+                        selected
+                    {% endif %}
+                >
+                    IN PROGRESS
+                </option>
+
+                <option value="COMPLETED"
+                    {% if work_order.status == 'COMPLETED' %}
+                        selected
+                    {% endif %}
+                >
+                    COMPLETED
+                </option>
+
+            </select>
+
+        </div>
+
+        <div style="margin-top:25px;">
+
+            <button type="submit" class="btn">
+                Update Work Order
+            </button>
+
+            <a href="{% url 'work_order_detail' work_order.id %}"
+               class="btn"
+               style="margin-left:10px;">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
 
 </div>
 

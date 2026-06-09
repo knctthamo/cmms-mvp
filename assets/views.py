@@ -5,10 +5,10 @@ from .services import create_asset, get_asset_by_id,update_asset,delete_asset
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from accounts.permissions import is_admin
+from accounts.permissions import is_admin,is_admin_or_manager
 
 @login_required
-
+@user_passes_test(is_admin_or_manager)
 def asset_list(request):
     assets = get_all_assets()
 
@@ -21,6 +21,7 @@ def asset_list(request):
     )
 
 @login_required
+@user_passes_test(is_admin_or_manager)
 def active_asset_list(request):
     assets = get_active_assets()
 
@@ -55,6 +56,7 @@ def asset_create(request):
     )
 # Show details of one asset
 @login_required
+@user_passes_test(is_admin_or_manager)
 def asset_detail(request, id):
 
     # Get asset from service layer
@@ -74,6 +76,7 @@ def asset_detail(request, id):
 
 # Edit existing asset
 @login_required
+@user_passes_test(is_admin)
 def asset_edit(request, id):
 
     # Load asset for edit page
@@ -105,6 +108,7 @@ def asset_edit(request, id):
 
 # Delete asset
 @login_required
+@user_passes_test(is_admin)
 def asset_delete(request, id):
 
     # Handle delete confirmation

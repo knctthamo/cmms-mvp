@@ -11,3 +11,11 @@ def is_manager(user):
 
 def is_technician(user):
     return user.groups.filter(name='Technician').exists()
+
+
+def is_admin_or_manager(user):
+    return (
+        is_admin(user)
+        or
+        is_manager(user)
+    )

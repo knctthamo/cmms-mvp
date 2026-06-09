@@ -2,11 +2,23 @@
 
 {% block content %}
 
+
 <h1 style="margin-bottom:25px;">📊 CMMS Dashboard</h1>
 
 <div class="quick-actions"> 
-    <a href="{% url 'asset_create' %}" class="action-btn"> ➕ Create Asset </a> 
-    <a href="{% url 'work_order_create' %}" class="action-btn"> 🔧 Create Work Order </a>
+    
+    {% if is_admin %}
+
+    <a href="{% url 'asset_create' %}" class="action-btn">➕ Create Asset</a>
+
+    {% endif %}
+
+    {% if is_admin or is_manager %}
+
+    <a href="{% url 'work_order_create' %}" class="action-btn"> 🔧 Create Work Order</a>
+
+    {% endif %}    
+
  </div>
 
 <div class="dashboard-grid">
@@ -82,12 +94,5 @@
 
 </div>
 
-<p>
-
-{% for group in groups %}
-    {{ group.name }}
-{% endfor %}
-
-</p>
 
 {% endblock %}

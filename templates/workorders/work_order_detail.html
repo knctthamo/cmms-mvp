@@ -6,16 +6,6 @@
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
         <h2>🔧 Work Order Details</h2>
-
-        <div class="action-links">
-            <a href="{% url 'work_order_edit' work_order.id %}" class="btn">
-                Edit
-            </a>
-
-            <a href="{% url 'work_order_delete' work_order.id %}" class="danger-btn">
-                Delete
-            </a>
-        </div>
     </div>
 
     <table class="detail-table">
@@ -37,8 +27,23 @@
 
         <tr>
             <td class="detail-label">Asset</td>
+            <td>{{ work_order.asset.asset_code }}</td>
+        </tr>
+
+        <tr>
+            <td class="detail-label">Assigned To</td>
             <td>
-                {{ work_order.asset.asset_code }}
+
+                {% if work_order.assigned_to %}
+
+                    {{ work_order.assigned_to.username }}
+
+                {% else %}
+
+                    Not Assigned
+
+                {% endif %}
+
             </td>
         </tr>
 
@@ -48,16 +53,45 @@
         </tr>
 
         <tr>
+            <td class="detail-label">Due Date</td>
+            <td>{{ work_order.due_date }}</td>
+        </tr>
+
+        <tr>
             <td class="detail-label">Created Date</td>
             <td>{{ work_order.created_date }}</td>
+        </tr>
+
+        <tr>
+            <td class="detail-label">Last Updated</td>
+            <td>{{ work_order.updated_date }}</td>
         </tr>
 
     </table>
 
     <div style="margin-top:20px;">
-        <a href="{% url 'work_order_list' %}" class="btn">
+
+        {% if is_admin_or_manager %}
+
+        <a href="{% url 'work_order_edit' work_order.id %}"
+           class="btn">
+            Edit
+        </a>
+
+        <a href="{% url 'work_order_delete' work_order.id %}"
+           class="btn danger-btn"
+           style="margin-left:10px;">
+            Delete
+        </a>
+
+        {% endif %}
+
+        <a href="{% url 'work_order_list' %}"
+           class="btn"
+           style="margin-left:10px;">
             ← Back to Work Orders
         </a>
+
     </div>
 
 </div>

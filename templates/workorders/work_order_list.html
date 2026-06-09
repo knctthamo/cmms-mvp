@@ -9,17 +9,13 @@
 <table>
 
     <tr>
-
         <th>WO Number</th>
-
         <th>Title</th>
-
         <th>Asset</th>
-
+        <th>Assigned To</th>
         <th>Status</th>
-
+        <th>Due Date</th>
         <th>Actions</th>
-
     </tr>
 
     {% for work_order in work_orders %}
@@ -27,56 +23,59 @@
     <tr>
 
         <td>
-
-            <a href="/workorders/{{ work_order.id }}/">
-
-                {{ work_order.work_order_number }}
-
-            </a>
-
+            {{ work_order.work_order_number }}
         </td>
 
         <td>
-
             {{ work_order.title }}
-
         </td>
 
         <td>
-
             {{ work_order.asset.asset_code }}
-
         </td>
 
         <td>
 
+            {% if work_order.assigned_to %}
+
+                {{ work_order.assigned_to.username }}
+
+            {% else %}
+
+                Not Assigned
+
+            {% endif %}
+
+        </td>
+
+        <td>
             {{ work_order.status }}
+        </td>
 
+        <td>
+            {{ work_order.due_date }}
         </td>
 
         <td>
 
-            <a href="/workorders/{{ work_order.id }}/">
-
+            <a href="/workorders/{{ work_order.id }}/"
+               class="action-btn">
                 View
-
             </a>
 
-            |
+            {% if is_admin_or_manager %}
 
-            <a href="/workorders/{{ work_order.id }}/edit/">
-
+            <a href="/workorders/{{ work_order.id }}/edit/"
+               class="action-btn">
                 Edit
-
             </a>
 
-            |
-
-            <a href="/workorders/{{ work_order.id }}/delete/">
-
+            <a href="/workorders/{{ work_order.id }}/delete/"
+               class="action-btn">
                 Delete
-
             </a>
+
+            {% endif %}
 
         </td>
 
@@ -86,10 +85,8 @@
 
     <tr>
 
-        <td colspan="5">
-
+        <td colspan="7">
             No work orders found.
-
         </td>
 
     </tr>

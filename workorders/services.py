@@ -1,5 +1,8 @@
+from django.contrib.auth.models import User
+
 from .models import WorkOrder
 from assets.models import Asset
+
 
 # Generate next work order number
 def generate_work_order_number():
@@ -17,27 +20,47 @@ def get_all_work_orders():
 
     return WorkOrder.objects.all()
 
+
+# Get technicians
+def get_technicians():
+
+    return User.objects.filter(
+        groups__name='Technician'
+    )
+
+
 # Create work order
 def create_work_order(
     title,
     description,
-    asset_id
+    asset_id,
+    assigned_to_id,
+    due_date
 ):
 
     work_order_number = generate_work_order_number()
 
     asset = Asset.objects.get(id=asset_id)
 
+    assigned_to = User.objects.get(
+        id=assigned_to_id
+    )
+
     return WorkOrder.objects.create(
         work_order_number=work_order_number,
         title=title,
         description=description,
-        asset=asset
+        asset=asset,
+        assigned_to=assigned_to,
+        due_date=due_date
     )
+
+
 # Get work order by id
 def get_work_order_by_id(id):
 
     return WorkOrder.objects.get(id=id)
+
 
 # Update work order
 def update_work_order(
@@ -45,6 +68,8 @@ def update_work_order(
     title,
     description,
     asset_id,
+    assigned_to_id,
+    due_date,
     status
 ):
 
@@ -52,9 +77,15 @@ def update_work_order(
 
     asset = Asset.objects.get(id=asset_id)
 
+    assigned_to = User.objects.get(
+        id=assigned_to_id
+    )
+
     work_order.title = title
     work_order.description = description
     work_order.asset = asset
+    work_order.assigned_to = assigned_to
+    work_order.due_date = due_date
     work_order.status = status
 
     work_order.save()

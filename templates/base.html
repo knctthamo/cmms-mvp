@@ -21,15 +21,32 @@
             Dashboard
         </a>
 
+
+        {% if is_admin_or_manager %}
+
         <a href="{% url 'asset_list' %}"
         class="{% if current_page == 'assets' %}active-link{% endif %}">
             Assets
         </a>
 
+        {% endif %}
+            
+        {% if is_admin_or_manager %}
+
         <a href="{% url 'work_order_list' %}"
         class="{% if current_page == 'workorders' %}active-link{% endif %}">
             Work Orders
         </a>
+
+        {% endif %}
+
+        {% if is_technician %}
+
+        <a href="#">
+            My Work Orders
+        </a>
+
+        {% endif %}
 
         <a href="/logout/">
             Logout
@@ -52,7 +69,7 @@
 
             </span>
 
-        </div>
+        </div>    
 
         {% block content %}
         {% endblock %}
@@ -60,6 +77,8 @@
     </div>
 
 </div>
+
+
 
 </body>
 </html>
