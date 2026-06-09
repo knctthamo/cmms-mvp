@@ -105,3 +105,18 @@ def get_work_orders_for_technician(user):
     return WorkOrder.objects.filter(
         assigned_to=user
     )
+
+def update_status(
+    id,
+    status
+):
+
+    work_order = WorkOrder.objects.get(
+        id=id
+    )
+
+    work_order.status = status
+
+    work_order.save()
+
+    return work_order

@@ -10,7 +10,9 @@ from .services import (
     update_work_order,
     delete_work_order,
     get_technicians,
-    get_work_orders_for_technician
+    get_work_orders_for_technician,
+    update_status
+
 )
 
 from accounts.permissions import is_admin_or_manager, is_technician
@@ -152,6 +154,33 @@ def my_work_orders(request):
         'workorders/my_work_orders.html',
         {
             'work_orders': work_orders,
+            'current_page': 'myworkorders',
+        }
+    )
+
+
+@login_required
+@user_passes_test(is_technician)
+def update_work_order_status(request, id):
+
+    work_order = get_work_order_by_id(id)
+    if work_order.assigned_to != request.user:
+        return redirect('/dashboard/')
+
+    if request.method == 'POST':
+
+        update_status(
+            id=id,
+            status=request.POST['status']
+        )
+
+        return redirect('/workorders/my-work-orders/')
+
+    return render(
+        request,
+        'workorders/update_work_order_status.html',
+        {
+            'work_order': work_order,
             'current_page': 'myworkorders',
         }
     )
