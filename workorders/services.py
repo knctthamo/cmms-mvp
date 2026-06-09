@@ -99,3 +99,9 @@ def delete_work_order(id):
     work_order = WorkOrder.objects.get(id=id)
 
     work_order.delete()
+
+def get_work_orders_for_technician(user):
+
+    return WorkOrder.objects.filter(
+        assigned_to=user
+    )

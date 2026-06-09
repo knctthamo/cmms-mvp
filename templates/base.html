@@ -42,7 +42,8 @@
 
         {% if is_technician %}
 
-        <a href="#">
+        <a href="{% url 'my_work_orders' %}"
+        class="{% if current_page == 'myworkorders' %}active-link{% endif %}">
             My Work Orders
         </a>
 

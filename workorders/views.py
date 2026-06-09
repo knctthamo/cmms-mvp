@@ -9,10 +9,11 @@ from .services import (
     get_work_order_by_id,
     update_work_order,
     delete_work_order,
-    get_technicians
+    get_technicians,
+    get_work_orders_for_technician
 )
 
-from accounts.permissions import is_admin_or_manager
+from accounts.permissions import is_admin_or_manager, is_technician
 
 
 # Show all work orders
@@ -135,5 +136,22 @@ def work_order_delete(request, id):
         {
             'work_order': work_order,
             'current_page': 'workorders',
+        }
+    )
+
+@login_required
+@user_passes_test(is_technician)
+def my_work_orders(request):
+
+    work_orders = get_work_orders_for_technician(
+        request.user
+    )
+
+    return render(
+        request,
+        'workorders/my_work_orders.html',
+        {
+            'work_orders': work_orders,
+            'current_page': 'myworkorders',
         }
     )
