@@ -46,7 +46,7 @@ def create_work_order(
         id=assigned_to_id
     )
 
-    return WorkOrder.objects.create(
+    work_order = WorkOrder.objects.create(
         work_order_number=work_order_number,
         title=title,
         description=description,
@@ -55,6 +55,36 @@ def create_work_order(
         due_date=due_date
     )
 
+    print("\n========================")
+
+    print(
+        f"WhatsApp To: "
+        f"{assigned_to.userprofile.phone_number}"
+    )
+
+    print(
+        f"""
+    New Work Order Assigned
+
+    WO Number:
+    {work_order.work_order_number}
+
+    Title:
+    {work_order.title}
+
+    Asset:
+    {asset.asset_code}
+
+    Due Date:
+    {work_order.due_date}
+
+    Please login to CMMS and update the status.
+    """
+    )
+
+    print("========================\n")
+
+    return work_order
 
 # Get work order by id
 def get_work_order_by_id(id):

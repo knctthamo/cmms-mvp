@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'maintenance',
     'dashboard',
     'accounts',
+    'profiles.apps.ProfilesConfig',
 ]
 
 MIDDLEWARE = [
