@@ -29,6 +29,37 @@ def get_technicians():
     )
 
 
+def send_work_order_assignment_notification(
+    work_order
+):
+
+    technician = work_order.assigned_to
+
+    print("\n========================")
+
+    print(
+        f"WhatsApp To: "
+        f"{technician.userprofile.phone_number}"
+    )
+
+    print(
+        f"""
+    New Work Order Assigned
+
+    WO Number: {work_order.work_order_number}
+
+    Title: {work_order.title}
+
+    Asset: {work_order.asset.asset_code}
+
+    Due Date: {work_order.due_date}
+
+    Please login to CMMS and update the status.
+    """
+        )
+
+    print("========================\n")
+
 # Create work order
 def create_work_order(
     title,
@@ -55,34 +86,9 @@ def create_work_order(
         due_date=due_date
     )
 
-    print("\n========================")
-
-    print(
-        f"WhatsApp To: "
-        f"{assigned_to.userprofile.phone_number}"
+    send_work_order_assignment_notification(
+        work_order
     )
-
-    print(
-        f"""
-    New Work Order Assigned
-
-    WO Number:
-    {work_order.work_order_number}
-
-    Title:
-    {work_order.title}
-
-    Asset:
-    {asset.asset_code}
-
-    Due Date:
-    {work_order.due_date}
-
-    Please login to CMMS and update the status.
-    """
-    )
-
-    print("========================\n")
 
     return work_order
 
