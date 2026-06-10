@@ -39,3 +39,31 @@ def delete_user(id):
     user = User.objects.get(id=id)
 
     user.delete()
+
+def update_user(
+    id,
+    username,
+    role,
+    phone_number
+):
+
+    user = User.objects.get(id=id)
+
+    user.username = username
+    user.save()
+
+    user.groups.clear()
+
+    group = Group.objects.get(
+        name=role
+    )
+
+    user.groups.add(group)
+
+    user.userprofile.phone_number = (
+        phone_number
+    )
+
+    user.userprofile.save()
+
+    return user

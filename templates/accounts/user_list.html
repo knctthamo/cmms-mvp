@@ -52,7 +52,14 @@
 
         </td>
 
+      
+
         <td>
+
+            <a href="{% url 'user_edit' user.id %}"
+            class="action-btn">
+                Edit
+            </a>             
 
             <a href="{% url 'user_delete' user.id %}"
             class="action-btn">

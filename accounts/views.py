@@ -14,7 +14,8 @@ from .services import (
     get_all_users,
     create_user,
     get_user_by_id,
-    delete_user
+    delete_user,
+    update_user
 )
 
 from .permissions import is_admin
@@ -95,6 +96,35 @@ def user_create(request):
         }
     )
 
+
+@login_required
+@user_passes_test(is_admin)
+def user_edit(request, id):
+
+    user = get_user_by_id(id)
+
+    if request.method == 'POST':
+
+        update_user(
+            id=id,
+            username=request.POST['username'],
+            role=request.POST['role'],
+            phone_number=request.POST['phone_number']
+        )
+
+        return redirect('/users/')
+
+    groups = Group.objects.all()
+
+    return render(
+        request,
+        'accounts/user_edit.html',
+        {
+            'user_obj': user,
+            'groups': groups,
+            'current_page': 'users',
+        }
+    )
 
 @login_required
 @user_passes_test(is_admin)

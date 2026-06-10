@@ -5,7 +5,8 @@ from .views import (
     logout_view,
     user_list,
     user_create,
-    user_delete
+    user_delete,
+    user_edit
 )
 
 urlpatterns = [
@@ -39,5 +40,10 @@ urlpatterns = [
         user_delete,
         name='user_delete'
     ),
-
+    
+    path(
+        'users/<int:id>/edit/',
+        user_edit,
+        name='user_edit'
+    ),
 ]
