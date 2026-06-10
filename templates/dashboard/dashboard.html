@@ -17,7 +17,12 @@
 
     <a href="{% url 'work_order_create' %}" class="action-btn"> 🔧 Create Work Order</a>
 
-    {% endif %}    
+    {% endif %}  
+
+    {% if is_admin %}
+
+    <a href="{% url 'user_create' %}" class="action-btn">  ➕ Create User </a>
+    {% endif %} 
 
  </div>
 

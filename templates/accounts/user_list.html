@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Users</h1>
+
+<div style="margin-bottom:20px;">
+
+
+
+</div>
+
+<table>
+
+    <tr>
+
+        <th>Username</th>
+
+        <th>Role</th>
+
+        <th>Phone Number</th>
+
+        <th>Actions</th>
+
+    </tr>
+
+    {% for user in users %}
+
+    <tr>
+
+        <td>
+            {{ user.username }}
+        </td>
+
+        <td>
+
+            {% for group in user.groups.all %}
+
+                {{ group.name }}
+
+            {% empty %}
+
+                No Role
+
+            {% endfor %}
+
+        </td>
+
+        <td>
+
+            {{ user.userprofile.phone_number }}
+
+        </td>
+
+        <td>
+
+            <a href="{% url 'user_delete' user.id %}"
+            class="action-btn">
+                Delete
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% empty %}
+
+    <tr>
+
+        <td colspan="4">
+
+            No users found.
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

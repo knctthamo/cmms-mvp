@@ -40,6 +40,15 @@
 
         {% endif %}
 
+        {% if is_admin %}
+
+        <a href="{% url 'user_list' %}"
+        class="{% if current_page == 'users' %}active-link{% endif %}">
+            Users
+        </a>
+
+        {% endif %}        
+
         {% if is_technician %}
 
         <a href="{% url 'my_work_orders' %}"
