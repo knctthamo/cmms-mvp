@@ -80,7 +80,8 @@ def user_create(request):
             username=request.POST['username'],
             password=request.POST['password'],
             role=request.POST['role'],
-            phone_number=request.POST['phone_number']
+            phone_number=request.POST['phone_number'],
+            telegram_chat_id=request.POST['telegram_chat_id']
         )
 
         return redirect('/users/')
@@ -109,7 +110,8 @@ def user_edit(request, id):
             id=id,
             username=request.POST['username'],
             role=request.POST['role'],
-            phone_number=request.POST['phone_number']
+            phone_number=request.POST['phone_number'],
+            telegram_chat_id=request.POST['telegram_chat_id']
         )
 
         return redirect('/users/')

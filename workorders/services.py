@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-
+import requests
 from .models import WorkOrder
 from assets.models import Asset
 
@@ -60,6 +60,45 @@ def send_work_order_assignment_notification(
 
     print("========================\n")
 
+def send_telegram_notification(
+    work_order
+):
+  
+
+    BOT_TOKEN = "8651785307:AAHFOZimcaTHAQc3duw4hyHRgpoShrR-y1Q"
+
+    chat_id = (work_order.assigned_to.userprofile.telegram_chat_id)
+
+    message = f"""
+        New Work Order Assigned
+
+        WO Number: {work_order.work_order_number}
+
+        Title: {work_order.title}
+
+        Asset: {work_order.asset.asset_code}
+
+        Due Date: {work_order.due_date}
+        """
+
+    if not chat_id:
+
+        print(
+            "No Telegram Chat ID found"
+        )
+
+        return
+
+    requests.post(
+        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+        data={
+            "chat_id": chat_id,
+            "text": message
+        }
+    )
+
+
+
 # Create work order
 def create_work_order(
     title,
@@ -86,9 +125,7 @@ def create_work_order(
         due_date=due_date
     )
 
-    send_work_order_assignment_notification(
-        work_order
-    )
+    send_telegram_notification(work_order)
 
     return work_order
 
@@ -156,3 +193,7 @@ def update_status(
     work_order.save()
 
     return work_order
+
+
+
+

@@ -10,7 +10,8 @@ def create_user(
     username,
     password,
     role,
-    phone_number
+    phone_number,
+    telegram_chat_id
 ):
 
     user = User.objects.create_user(
@@ -25,6 +26,11 @@ def create_user(
     user.groups.add(group)
 
     user.userprofile.phone_number = phone_number
+
+    user.userprofile.telegram_chat_id = (
+        telegram_chat_id
+    )
+
     user.userprofile.save()
 
     return user
@@ -44,7 +50,8 @@ def update_user(
     id,
     username,
     role,
-    phone_number
+    phone_number,
+    telegram_chat_id
 ):
 
     user = User.objects.get(id=id)
@@ -62,6 +69,10 @@ def update_user(
 
     user.userprofile.phone_number = (
         phone_number
+    )
+
+    user.userprofile.telegram_chat_id = (
+    telegram_chat_id
     )
 
     user.userprofile.save()
