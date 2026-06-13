@@ -1,1 +1,1 @@
-web: gunicorn cmms.wsgi
+web: gunicorn cmmsgit add ..wsgi
